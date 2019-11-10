@@ -1,0 +1,16 @@
+{
+	"name": "com.cratesmith.zinq",
+	"displayName": "Cratesmith.Zinq",
+	"description": "Zinq. It's like linq with zero allocation",
+	"version": "0.0.1-firstpass",
+	"unity": "2018.3",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Cratesmith/Cratesmith.Zinq.git"
+	},
+	"src": "Packages/Cratesmith.Zinq",
+	"author": "Kieran Lord <cratesmith@cratesmith.com> (https://github.com/cratesmith)",
+	"dependencies": {
+	}
+}
