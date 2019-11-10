@@ -2,7 +2,7 @@
 	"name": "com.cratesmith.zinq",
 	"displayName": "Cratesmith.Zinq",
 	"description": "Zinq. It's like linq with zero allocation",
-	"version": "0.0.1-firstpass",
+	"version": "0.0.1",
 	"unity": "2018.3",
 	"license": "MIT",
 	"repository": {
