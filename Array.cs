@@ -58,7 +58,6 @@ namespace Zinq
 
             public void Dispose()
             {
-                Reset();
             }
         }
     }

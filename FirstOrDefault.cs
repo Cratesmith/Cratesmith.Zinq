@@ -27,11 +27,14 @@ namespace Zinq
             /// <typeparam name="TCollection"></typeparam>
             public TSource FirstOrDefault(Predicate<TSource> _predicate)
             {
-                while (enumerator.MoveNext())
+                using (enumerator)
                 {
-                    if (_predicate(enumerator.Current)) return enumerator.Current;
+                    while (enumerator.MoveNext())
+                    {
+                        if (_predicate(enumerator.Current)) return enumerator.Current;
+                    }
+                    return default;
                 }
-                return default;
             }
             
             /// <summary>
@@ -41,11 +44,14 @@ namespace Zinq
             /// <typeparam name="TCollection"></typeparam>
             public TSource FirstOrDefault<TContext>(TContext _context, Func<TContext, TSource, bool> _predicate)
             {
-                while (enumerator.MoveNext())
+                using (enumerator)
                 {
-                    if (_predicate(_context, enumerator.Current)) return enumerator.Current;
+                    while (enumerator.MoveNext())
+                    {
+                        if (_predicate(_context, enumerator.Current)) return enumerator.Current;
+                    }
+                    return default;
                 }
-                return default;
             }
         }
     }

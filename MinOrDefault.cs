@@ -13,40 +13,47 @@ namespace Zinq
         {
             public TSource MinOrDefault<TResult>(Func<TSource, TResult> _selector)
             {
-                var comparer = Comparer<TResult>.Default;
-                bool found = false;
-                TResult bestResult = default;
-                TSource best = default;
-                while (enumerator.MoveNext())
+                using (enumerator)
                 {
-                    var currentResult = _selector(enumerator.Current);
-                    if (!found || comparer.Compare(currentResult, bestResult) == -1)
+                    var comparer = Comparer<TResult>.Default;
+                    bool found = false;
+                    TResult bestResult = default;
+                    TSource best = default;
+                    while (enumerator.MoveNext())
                     {
-                        found = true;
-                        best = enumerator.Current;
-                        bestResult = currentResult;
+                        var currentResult = _selector(enumerator.Current);
+                        if (!found || comparer.Compare(currentResult, bestResult) == -1)
+                        {
+                            found = true;
+                            best = enumerator.Current;
+                            bestResult = currentResult;
+                        }
                     }
+
+                    return best;
                 }
-                return best;
             }
             
             public TSource MinOrDefault<TContext, TResult>(TContext _context, Func<TContext, TSource, TResult> _selector)
             {
-                var comparer = Comparer<TResult>.Default;
-                bool found = false;
-                TResult bestResult = default;
-                TSource best = default;
-                while (enumerator.MoveNext())
+                using (enumerator)
                 {
-                    var currentResult = _selector(_context, enumerator.Current);
-                    if (!found || comparer.Compare(currentResult, bestResult) == -1)
+                    var comparer = Comparer<TResult>.Default;
+                    bool found = false;
+                    TResult bestResult = default;
+                    TSource best = default;
+                    while (enumerator.MoveNext())
                     {
-                        found = true;
-                        best = enumerator.Current;
-                        bestResult = currentResult;
+                        var currentResult = _selector(_context, enumerator.Current);
+                        if (!found || comparer.Compare(currentResult, bestResult) == -1)
+                        {
+                            found = true;
+                            best = enumerator.Current;
+                            bestResult = currentResult;
+                        }
                     }
+                    return best;
                 }
-                return best;
             }
         }
     }

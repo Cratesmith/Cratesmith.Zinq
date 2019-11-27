@@ -89,7 +89,7 @@ namespace Zinq
                         return true;
                     }
                 }
-                
+                m_Enumerator.Dispose();
                 m_Current = default;
                 return false;
             }
@@ -110,7 +110,6 @@ namespace Zinq
                 m_EnumeratorInner.Dispose();
                 m_EnumeratorInner = default;
                 m_HasInnerEnumerator = false;
-
                 return false;
             }
 
@@ -170,6 +169,7 @@ namespace Zinq
                     }
                 }
 
+                m_Enumerator.Dispose();
                 m_Current = default;
                 return false;
             }

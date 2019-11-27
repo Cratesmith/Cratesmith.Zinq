@@ -60,6 +60,7 @@ namespace Zinq
                     return true;
                 }
 
+                m_Enumerator.Dispose();
                 m_Current = default;
                 return false;
             }
@@ -94,6 +95,7 @@ namespace Zinq
                     return true;
                 }
 
+                m_Enumerator.Dispose();
                 m_Current = default;
                 return false;
             }

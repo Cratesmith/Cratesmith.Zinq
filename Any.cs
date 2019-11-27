@@ -18,11 +18,14 @@ namespace Zinq
             /// <returns></returns>
             public bool Any(Predicate<TSource> _predicate)
             {
-                while (enumerator.MoveNext())
+                using (enumerator)
                 {
-                    if (_predicate(enumerator.Current)) return true;
+                    while (enumerator.MoveNext())
+                    {
+                        if (_predicate(enumerator.Current)) return true;
+                    }
+                    return false;    
                 }
-                return false;
             }
             
             /// <summary>
@@ -32,11 +35,14 @@ namespace Zinq
             /// <returns></returns>
             public bool Any<TContext>(TContext _context, Func<TContext, TSource, bool> _predicate)
             {
-                while (enumerator.MoveNext())
+                using (enumerator)
                 {
-                    if (_predicate(_context, enumerator.Current)) return true;
+                    while (enumerator.MoveNext())
+                    {
+                        if (_predicate(_context, enumerator.Current)) return true;
+                    }
+                    return false;
                 }
-                return false;
             }
         }
     }

@@ -17,10 +17,12 @@ namespace Zinq
             /// <param name="_count"></param>
             public void Skip(int _count)
             {
-                while (enumerator.MoveNext() && _count>0)
+                while (enumerator.MoveNext())
                 {
+                    if (_count <= 0) return;
                     --_count;
                 }
+                enumerator.Dispose();
             }
         }
     }

@@ -54,7 +54,7 @@ namespace Zinq
                 {
                     if (m_Predicate(Current)) return true;
                 }
-
+                m_Enumerator.Dispose();
                 return false;
             }
 
@@ -84,7 +84,7 @@ namespace Zinq
                 {
                     if (m_Predicate(m_Context, Current)) return true;
                 }
-
+                m_Enumerator.Dispose();
                 return false;
             }
 

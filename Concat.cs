@@ -47,6 +47,7 @@ namespace Zinq
                     m_Current = m_Enumerator.Current;
                     return true;
                 }
+                m_Enumerator.Dispose();
 
                 if (m_OtherEnumerator.MoveNext())
                 {
@@ -54,6 +55,7 @@ namespace Zinq
                     return true;
                 }
                 
+                m_OtherEnumerator.Dispose();
                 m_Current = default;
                 return false;
             }
@@ -67,7 +69,11 @@ namespace Zinq
 
             public TSource Current => m_Current;
             object IEnumerator.Current => Current;
-            public void Dispose() => m_Enumerator.Dispose();
+            public void Dispose()
+            {
+                m_Enumerator.Dispose();
+                m_OtherEnumerator.Dispose();
+            }
         }
     }
 }

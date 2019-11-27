@@ -18,9 +18,12 @@ namespace Zinq
             /// <typeparam name="TCollection"></typeparam>
             public void Foreach(Action<TSource> _action)
             {
-                while (enumerator.MoveNext())
+                using (enumerator)
                 {
-                    _action(enumerator.Current);
+                    while (enumerator.MoveNext())
+                    {
+                        _action(enumerator.Current);
+                    }    
                 }
             }
             
@@ -31,10 +34,14 @@ namespace Zinq
             /// <typeparam name="TCollection"></typeparam>
             public void Foreach<TContext>(TContext _context, Action<TContext, TSource> _action)
             {
-                while (enumerator.MoveNext())
+                using (enumerator)
                 {
-                    _action(_context, enumerator.Current);
+                    while (enumerator.MoveNext())
+                    {
+                        _action(_context, enumerator.Current);
+                    }    
                 }
+                
             }
         }
     }

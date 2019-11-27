@@ -22,7 +22,7 @@ namespace Zinq
                 {
                     _outCollection.Add(enumerator.Current);
                 }
-
+                enumerator.Dispose();
                 return _outCollection;
             }
             
@@ -35,10 +35,12 @@ namespace Zinq
             {
                 while (enumerator.MoveNext() && _count>0)
                 {
+                    if (_count <= 0) return _outCollection;
                     _outCollection.Add(enumerator.Current);
                     --_count;
                 }
                 
+                enumerator.Dispose();
                 return _outCollection;
             }
         }
