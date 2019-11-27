@@ -49,7 +49,7 @@ namespace Tests
 
             Assert.That(() =>
             {
-                Zinq<int>.BeginE(list.GetEnumerator())
+                Zinq<int>.FromEnumerator(list.GetEnumerator())
                     .Select(_x => _x * 5)
                     .To(outputs);
             }, Is.Not.AllocatingGCMemory());
@@ -71,7 +71,7 @@ namespace Tests
 
             Assert.That(() =>
             {
-                Zinq<int>.BeginL(list)
+                Zinq<int>.FromList(list)
                     .Select(_x => _x * 5)
                     .To(outputs);
                 
@@ -123,7 +123,7 @@ namespace Tests
 
             Assert.That(() =>
             {
-                Zinq<int>.BeginA(array)
+                Zinq<int>.FromArray(array)
                     .Select(_x => _x * 5)
                     .To(outputs);
                 
@@ -138,7 +138,7 @@ namespace Tests
         }
 
         [Test]
-        public void Enumerable()
+        public void AsEnumerable()
         {            
             var outputs = new List<int>(10);
             var list = new List<int>(10);
@@ -149,9 +149,9 @@ namespace Tests
 
             Assert.That(() =>
             {
-                var query = Zinq<int>.BeginE(list.GetEnumerator())
+                var query = Zinq<int>.FromEnumerator(list.GetEnumerator())
                     .Select(_x => _x * 5)
-                    .Enumerable();
+                    .AsEnumerable();
                 foreach (var result in query)
                 {
                     outputs.Add(result);
@@ -180,19 +180,19 @@ namespace Tests
             
             Assert.That(() =>
             {
-                output1 = Zinq<int>.BeginE(list.GetEnumerator())
+                output1 = Zinq<int>.FromEnumerator(list.GetEnumerator())
                     .Select((add:10, mul:2), (_c, _v) => _c.add + _v*_c.mul)
                     .FirstOrDefault();
                 
-                output2 = Zinq<int>.BeginE(list.GetEnumerator())
+                output2 = list.Zinq()
                     .Select((add:10, mul:2), (_c, _v) => _c.add + _v*_c.mul)
                     .FirstOrDefault(_x=>_x%3 == 0);
 
-                output3 = Zinq<int>.BeginA(array)
+                output3 = Zinq<int>.FromArray(array)
                     .Select((add:10, mul:2), (_c, _v) => _c.add + _v*_c.mul)
                     .FirstOrDefault();
                 
-                output4 = Zinq<int>.BeginA(array)
+                output4 = array.Zinq()
                     .Select((add:10, mul:2), (_c, _v) => _c.add + _v*_c.mul)
                     .FirstOrDefault(_x=>_x%3 == 0);
             }, Is.Not.AllocatingGCMemory());
