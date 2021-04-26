@@ -49,42 +49,9 @@ The context invariant can be of any type. Which allows for multiple context para
 
 ## Installation
 
-Add the following lines to your project's `manifest.json` (in the packages folder of your project)
-
-    "scopedRegistries": [
-        {
-          "name": "Cratesmith",
-          "scopes": [
-            "com.cratesmith"
-          ],
-          "url": "http://upm.cratesmith.com:4873"
-        }
-      ]
-
-Your `manifest.json` should look something like this
-
-    {
-      "scopedRegistries": [
-        {
-          "name": "Cratesmith",
-          "scopes": [
-            "com.cratesmith"
-          ],
-          "url": "http://upm.cratesmith.com:4873"
-        }
-      ],
-    
-      "dependencies": {
-        "com.unity.2d.sprite": "1.0.0",
-        "com.unity.2d.tilemap": "1.0.0",
-        "com.unity.cinemachine": "2.3.4",
-        ... etc ....
-        }
-    }
-
- Select **Window > Package Manager** from the menu
- 
- Find **Cratesmith.Zinq** in the list (you may need to wait for it to refresh packages first)  and click **Install**
+1. Open the unity package manager window
+2. Click the add button and select "add from git url"
+3. Paste in the following url and press enter: https://github.com/Cratesmith/Cratesmith.Zinq.git
 
 ## Performance
 Detailed performance analysis still needs to be done to compare Zinq vs Linq vs hand written loops.
