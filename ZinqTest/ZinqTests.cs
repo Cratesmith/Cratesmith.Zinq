@@ -176,8 +176,6 @@ namespace Tests
                 array[i] = i;
             }
             
-            int context = 10;
-            
             Assert.That(() =>
             {
                 output1 = Zinq<int>.FromEnumerator(list.GetEnumerator())
