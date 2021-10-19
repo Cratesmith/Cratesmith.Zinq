@@ -10,7 +10,7 @@
 		"url": "git+https://github.com/Cratesmith/Cratesmith.Zinq.git"
 	},
 	"src": "Packages/Cratesmith.Zinq",
-	"author": "Kieran Lord <cratesmith@cratesmith.com> (https://github.com/cratesmith)",
+	"author": "Kiera Lord <cratesmith@cratesmith.com> (https://github.com/cratesmith)",
 	"dependencies": {
 	}
 }
