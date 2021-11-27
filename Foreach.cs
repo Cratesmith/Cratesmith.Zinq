@@ -32,7 +32,7 @@ namespace Zinq
             /// </summary>
             /// <param name="_outCollection"></param>
             /// <typeparam name="TCollection"></typeparam>
-            public void Foreach<TContext>(TContext _context, Action<TContext, TSource> _action)
+            public void Foreach<TContext>(in TContext _context, Action<TContext, TSource> _action)
             {
                 using (enumerator)
                 {

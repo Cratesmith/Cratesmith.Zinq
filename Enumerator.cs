@@ -12,7 +12,7 @@ namespace Zinq
         /// <param name="_enumerator"></param>
         /// <typeparam name="TEnumerator"></typeparam>
         /// <returns></returns>
-        public static ZinqHelper<TEnumerator> FromEnumerator<TEnumerator>(TEnumerator _enumerator)
+        public static ZinqHelper<TEnumerator> FromEnumerator<TEnumerator>(in TEnumerator _enumerator)
             where TEnumerator : struct, IEnumerator<TSource>
         {
             return new ZinqHelper<TEnumerator>(_enumerator);

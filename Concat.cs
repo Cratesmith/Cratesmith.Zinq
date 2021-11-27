@@ -33,7 +33,7 @@ namespace Zinq
             TOtherEnumerator m_OtherEnumerator;
             TSource m_Current;
 
-            public ZConcatEnumerator(TEnumerator _enumerator, TOtherEnumerator _otherEnumerator)
+            public ZConcatEnumerator(in TEnumerator _enumerator, TOtherEnumerator _otherEnumerator)
             {
                 m_Enumerator = _enumerator;
                 m_OtherEnumerator = _otherEnumerator;

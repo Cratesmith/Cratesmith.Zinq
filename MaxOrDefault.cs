@@ -17,7 +17,7 @@ namespace Zinq
             /// <param name="_selector"></param>
             /// <typeparam name="TResult"></typeparam>
             /// <returns></returns>
-            public TSource MaxOrDefault<TResult>(Func<TSource, TResult> _selector)
+            public TSource MaxOrDefault<TResult>(ZFunc<TSource, TResult> _selector)
             {
                 var comparer = Comparer<TResult>.Default;
                 bool found = false;
@@ -43,8 +43,8 @@ namespace Zinq
             /// <param name="_selector"></param>
             /// <typeparam name="TResult"></typeparam>
             /// <returns></returns>
-            public TSource MaxOrDefault<TContext, TResult>(TContext _context,
-                Func<TContext, TSource, TResult> _selector)
+            public TSource MaxOrDefault<TContext, TResult>(in TContext _context,
+                ZFunc<TContext, TSource, TResult> _selector)
             {
                 var comparer = Comparer<TResult>.Default;
                 bool found = false;

@@ -28,7 +28,7 @@ namespace Zinq
             TEnumerator m_Enumerator;
             bool m_Used; 
 
-            public ZEnumerable(TEnumerator _enumerator)
+            public ZEnumerable(in TEnumerator _enumerator)
             {
                 m_Enumerator = _enumerator;
                 m_Used = false;

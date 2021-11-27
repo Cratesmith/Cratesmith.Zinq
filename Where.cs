@@ -17,7 +17,7 @@ namespace Zinq
             /// </summary>
             /// <param name="_predicate"></param>
             /// <returns></returns>
-            public ZinqHelper<ZWhereEnumerator<TEnumerator>> Where(Predicate<TSource> _predicate) 
+            public ZinqHelper<ZWhereEnumerator<TEnumerator>> Where(ZPredicate<TSource> _predicate) 
             {
                 var query = new ZWhereEnumerator<TEnumerator>(enumerator, _predicate);
                 return new ZinqHelper<ZWhereEnumerator<TEnumerator>>(query);
@@ -29,7 +29,7 @@ namespace Zinq
             /// </summary>
             /// <param name="_predicate"></param>
             /// <returns></returns>
-            public ZinqHelper<ZWhereContextEnumerator<TEnumerator, TContext>> Where<TContext>(TContext _context, Func<TContext, TSource, bool> _predicate) 
+            public ZinqHelper<ZWhereContextEnumerator<TEnumerator, TContext>> Where<TContext>(in TContext _context, ZFunc<TContext, TSource, bool> _predicate) 
             {
                 var query = new ZWhereContextEnumerator<TEnumerator, TContext>(enumerator, _context, _predicate);
                 return new ZinqHelper<ZWhereContextEnumerator<TEnumerator, TContext>>(query);
@@ -40,9 +40,9 @@ namespace Zinq
             where TEnumerator: struct, IEnumerator<TSource>
         {
             TEnumerator m_Enumerator;
-            readonly Predicate<TSource> m_Predicate;
+            readonly ZPredicate<TSource> m_Predicate;
 
-            public ZWhereEnumerator(TEnumerator _enumerator, Predicate<TSource> _predicate)
+            public ZWhereEnumerator(in TEnumerator _enumerator, ZPredicate<TSource> _predicate)
             {
                 m_Enumerator = _enumerator;
                 m_Predicate = _predicate;
@@ -69,9 +69,9 @@ namespace Zinq
         {
             TEnumerator m_Enumerator;
             readonly TContext m_Context;
-            readonly Func<TContext,TSource, bool> m_Predicate;
+            readonly ZFunc<TContext,TSource, bool> m_Predicate;
 
-            public ZWhereContextEnumerator(TEnumerator _enumerator, TContext _context, Func<TContext,TSource, bool> _predicate)
+            public ZWhereContextEnumerator(in TEnumerator _enumerator, in TContext _context, ZFunc<TContext,TSource, bool> _predicate)
             {
                 m_Enumerator = _enumerator;
                 m_Predicate = _predicate;
@@ -90,7 +90,7 @@ namespace Zinq
 
             public void Reset() => m_Enumerator.Reset();
             public TSource Current => m_Enumerator.Current;
-            object IEnumerator.Current => Current;
+            object IEnumerator.Current => m_Enumerator.Current;
             public void Dispose() => m_Enumerator.Dispose();
         }
     }

@@ -16,7 +16,7 @@ namespace Zinq
             /// </summary>
             /// <param name="_predicate"></param>
             /// <returns></returns>
-            public bool Any(Predicate<TSource> _predicate)
+            public bool Any(ZPredicate<TSource> _predicate)
             {
                 using (enumerator)
                 {
@@ -33,7 +33,7 @@ namespace Zinq
             /// </summary>
             /// <param name="_predicate"></param>
             /// <returns></returns>
-            public bool Any<TContext>(TContext _context, Func<TContext, TSource, bool> _predicate)
+            public bool Any<TContext>(in TContext _context, ZFunc<TContext, TSource, bool> _predicate)
             {
                 using (enumerator)
                 {

@@ -18,7 +18,7 @@ namespace Zinq
             /// <param name="_selector"></param>
             /// <typeparam name="TResult"></typeparam>
             /// <returns></returns>
-            public Zinq<TResult>.ZinqHelper<ZSelectEnumerator<TEnumerator, TResult>> Select<TResult>(Func<TSource,TResult> _selector) 
+            public Zinq<TResult>.ZinqHelper<ZSelectEnumerator<TEnumerator, TResult>> Select<TResult>(ZFunc<TSource,TResult> _selector) 
             {
                 var query = new ZSelectEnumerator<TEnumerator, TResult>(enumerator, _selector);
                 return new Zinq<TResult>.ZinqHelper<ZSelectEnumerator<TEnumerator, TResult>>(query);
@@ -31,7 +31,7 @@ namespace Zinq
             /// <param name="_selector"></param>
             /// <typeparam name="TResult"></typeparam>
             /// <returns></returns>
-            public Zinq<TResult>.ZinqHelper<ZSelectContextEnumerator<TEnumerator, TContext, TResult>> Select<TContext, TResult>(TContext _context, Func<TContext, TSource, TResult> _selector) 
+            public Zinq<TResult>.ZinqHelper<ZSelectContextEnumerator<TEnumerator, TContext, TResult>> Select<TContext, TResult>(in TContext _context, ZFunc<TContext, TSource, TResult> _selector) 
             {
                 var query = new ZSelectContextEnumerator<TEnumerator, TContext, TResult>(enumerator, _context, _selector);
                 return new Zinq<TResult>.ZinqHelper<ZSelectContextEnumerator<TEnumerator, TContext, TResult>>(query);
@@ -42,10 +42,10 @@ namespace Zinq
             where TEnumerator: struct, IEnumerator<TSource>
         {
             TEnumerator m_Enumerator;
-            readonly Func<TSource, TResult> m_Selector;
+            readonly ZFunc<TSource, TResult> m_Selector;
             TResult m_Current;
 
-            public ZSelectEnumerator(TEnumerator _enumerator, Func<TSource, TResult> _selector)
+            public ZSelectEnumerator(in TEnumerator _enumerator, ZFunc<TSource, TResult> _selector)
             {
                 m_Enumerator = _enumerator;
                 m_Selector = _selector;
@@ -75,11 +75,11 @@ namespace Zinq
             where TEnumerator: struct, IEnumerator<TSource>
         {
             TEnumerator m_Enumerator;
-            readonly Func<TContext, TSource, TResult> m_Selector;
+            readonly ZFunc<TContext, TSource, TResult> m_Selector;
             TResult m_Current;
             TContext m_Context;
 
-            public ZSelectContextEnumerator(TEnumerator _enumerator, TContext _context, Func<TContext, TSource, TResult> _selector)
+            public ZSelectContextEnumerator(in TEnumerator _enumerator, in TContext _context, ZFunc<TContext, TSource, TResult> _selector)
             {
                 m_Enumerator = _enumerator;
                 m_Selector = _selector;

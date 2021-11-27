@@ -23,7 +23,7 @@ namespace Zinq
             /// <typeparam name="TResult"></typeparam>
             /// <returns></returns>
             public Zinq<TResult>.ZinqHelper<ZSelectManyEnumerator<TEnumerator, TInnerEnumerator, TInnerSource, TResult>> 
-                SelectMany<TInnerEnumerator, TInnerSource, TResult>(Func<TSource, TInnerEnumerator> _enumerator, Func<TInnerSource, TResult> _selector)  
+                SelectMany<TInnerEnumerator, TInnerSource, TResult>(ZFunc<TSource, TInnerEnumerator> _enumerator, ZFunc<TInnerSource, TResult> _selector)  
                 where TInnerEnumerator:IEnumerator<TInnerSource>
             {
                 var query = new ZSelectManyEnumerator<TEnumerator, TInnerEnumerator, TInnerSource, TResult>(enumerator, _enumerator, _selector);
@@ -44,7 +44,7 @@ namespace Zinq
             /// <typeparam name="TContext"></typeparam>
             /// <returns></returns>
             public Zinq<TResult>.ZinqHelper<ZSelectManyEnumerator<TEnumerator, TInnerEnumerator, TInnerSource, TResult, TContext>> 
-                SelectMany<TInnerEnumerator, TInnerSource, TResult, TContext>(TContext _context, Func<TContext, TSource, TInnerEnumerator> _enumerator, Func<TContext, TInnerSource, TResult> _selector)  
+                SelectMany<TInnerEnumerator, TInnerSource, TResult, TContext>(in TContext _context, ZFunc<TContext, TSource, TInnerEnumerator> _enumerator, ZFunc<TContext, TInnerSource, TResult> _selector)  
                 where TInnerEnumerator:IEnumerator<TInnerSource>
             {
                 var query = new ZSelectManyEnumerator<TEnumerator, TInnerEnumerator, TInnerSource, TResult, TContext>(enumerator, _context, _enumerator, _selector);
@@ -58,12 +58,12 @@ namespace Zinq
         {
             TEnumerator m_Enumerator;
             TInnerEnumerator m_EnumeratorInner;
-            readonly Func<TInnerSource, TResult> m_ResultSelector;
-            readonly Func<TSource, TInnerEnumerator> m_EnumeratorSelector;
+            readonly ZFunc<TInnerSource, TResult> m_ResultSelector;
+            readonly ZFunc<TSource, TInnerEnumerator> m_EnumeratorSelector;
             TResult m_Current;
             bool m_HasInnerEnumerator;
 
-            public ZSelectManyEnumerator(TEnumerator _enumerator, Func<TSource, TInnerEnumerator> _enumeratorSelector, Func<TInnerSource, TResult> _resultSelector)
+            public ZSelectManyEnumerator(in TEnumerator _enumerator, ZFunc<TSource, TInnerEnumerator> _enumeratorSelector, ZFunc<TInnerSource, TResult> _resultSelector)
             {
                 m_Enumerator = _enumerator;
                 m_EnumeratorSelector = _enumeratorSelector;
@@ -135,13 +135,13 @@ namespace Zinq
         {
             TEnumerator m_Enumerator;
             TInnerEnumerator m_EnumeratorInner;
-            readonly Func<TContext, TInnerSource, TResult> m_ResultSelector;
+            readonly ZFunc<TContext, TInnerSource, TResult> m_ResultSelector;
             TResult m_Current;
-            Func<TContext, TSource, TInnerEnumerator> m_EnumeratorSelector;
+            ZFunc<TContext, TSource, TInnerEnumerator> m_EnumeratorSelector;
             TContext m_Context;
             bool m_HasInnerEnumerator;
 
-            public ZSelectManyEnumerator(TEnumerator _enumerator, TContext _context, Func<TContext, TSource, TInnerEnumerator> _enumeratorSelector, Func<TContext, TInnerSource, TResult> _resultSelector)
+            public ZSelectManyEnumerator(in TEnumerator _enumerator, in TContext _context, ZFunc<TContext, TSource, TInnerEnumerator> _enumeratorSelector, ZFunc<TContext, TInnerSource, TResult> _resultSelector)
             {
                 m_Enumerator = _enumerator;
                 m_EnumeratorSelector = _enumeratorSelector;

@@ -29,8 +29,8 @@ namespace Tests
             
             Assert.That(() =>
             {
-                list.Zinq().SelectMany(_x => _x.GetEnumerator(), (int _y) => _y).To(outputs);
-                list.Zinq().SelectMany(2, (_, _x) => _x.GetEnumerator(), (int _c, int _y) => _y * _c).To(outputs2);
+                list.Zinq().SelectMany((in List<int> _x) => _x.GetEnumerator(), (in int _y) => _y).To(outputs);
+                list.Zinq().SelectMany(2, (in int _, in List<int> _x) => _x.GetEnumerator(), (in int _c, in int _y) => _y * _c).To(outputs2);
             }, Is.Not.AllocatingGCMemory());
             
             Assert.IsTrue(list.SelectMany(x=>x).SequenceEqual(outputs));
@@ -50,7 +50,7 @@ namespace Tests
             Assert.That(() =>
             {
                 Zinq<int>.FromEnumerator(list.GetEnumerator())
-                    .Select(_x => _x * 5)
+                    .Select((in int _x) => _x * 5)
                     .To(outputs);
             }, Is.Not.AllocatingGCMemory());
 
@@ -72,10 +72,10 @@ namespace Tests
             Assert.That(() =>
             {
                 Zinq<int>.FromList(list)
-                    .Select(_x => _x * 5)
+                    .Select((in int _x) => _x * 5)
                     .To(outputs);
                 
-                list.Zinq().Select(_x => _x * 5).To(outputs2);
+                list.Zinq().Select((in int _x) => _x * 5).To(outputs2);
             }, Is.Not.AllocatingGCMemory());
 
             Debug.Log(string.Join(", ", outputs));
@@ -124,11 +124,11 @@ namespace Tests
             Assert.That(() =>
             {
                 Zinq<int>.FromArray(array)
-                    .Select(_x => _x * 5)
+                    .Select((in int _x) => _x * 5)
                     .To(outputs);
                 
                 array.Zinq()
-                    .Select(_x => _x * 5)
+                    .Select((in int _x) => _x * 5)
                     .To(outputs2);
             }, Is.Not.AllocatingGCMemory());
 
@@ -150,7 +150,7 @@ namespace Tests
             Assert.That(() =>
             {
                 var query = Zinq<int>.FromEnumerator(list.GetEnumerator())
-                    .Select(_x => _x * 5)
+                    .Select((in int _x) => _x * 5)
                     .AsEnumerable();
                 foreach (var result in query)
                 {
@@ -179,20 +179,20 @@ namespace Tests
             Assert.That(() =>
             {
                 output1 = Zinq<int>.FromEnumerator(list.GetEnumerator())
-                    .Select((add:10, mul:2), (_c, _v) => _c.add + _v*_c.mul)
+                    .Select((add:10, mul:2), (in (int add, int mul) _c, in int _v) => _c.add + _v*_c.mul)
                     .FirstOrDefault();
                 
                 output2 = list.Zinq()
-                    .Select((add:10, mul:2), (_c, _v) => _c.add + _v*_c.mul)
-                    .FirstOrDefault(_x=>_x%3 == 0);
+                    .Select((add:10, mul:2), (in (int add, int mul) _c, in int _v) => _c.add + _v*_c.mul)
+                    .FirstOrDefault((in int _x)=>_x%3 == 0);
 
                 output3 = Zinq<int>.FromArray(array)
-                    .Select((add:10, mul:2), (_c, _v) => _c.add + _v*_c.mul)
+                    .Select((add:10, mul:2), (in (int add, int mul) _c, in int _v) => _c.add + _v*_c.mul)
                     .FirstOrDefault();
                 
                 output4 = array.Zinq()
-                    .Select((add:10, mul:2), (_c, _v) => _c.add + _v*_c.mul)
-                    .FirstOrDefault(_x=>_x%3 == 0);
+                    .Select((add:10, mul:2), (in (int add, int mul) _c, in int _v) => _c.add + _v*_c.mul)
+                    .FirstOrDefault((in int _x)=>_x%3 == 0);
             }, Is.Not.AllocatingGCMemory());
          
             Debug.Log($"{output1}, {output2}, {output3}, {output4}");

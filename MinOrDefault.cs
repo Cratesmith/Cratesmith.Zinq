@@ -11,7 +11,7 @@ namespace Zinq
         public partial struct ZinqHelper<TEnumerator>
             where TEnumerator : struct, IEnumerator<TSource>
         {
-            public TSource MinOrDefault<TResult>(Func<TSource, TResult> _selector)
+            public TSource MinOrDefault<TResult>(ZFunc<TSource, TResult> _selector)
             {
                 using (enumerator)
                 {
@@ -34,7 +34,7 @@ namespace Zinq
                 }
             }
             
-            public TSource MinOrDefault<TContext, TResult>(TContext _context, Func<TContext, TSource, TResult> _selector)
+            public TSource MinOrDefault<TContext, TResult>(in TContext _context, ZFunc<TContext, TSource, TResult> _selector)
             {
                 using (enumerator)
                 {

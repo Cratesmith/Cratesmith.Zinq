@@ -25,7 +25,7 @@ namespace Zinq
             /// </summary>
             /// <param name="_outCollection"></param>
             /// <typeparam name="TCollection"></typeparam>
-            public TSource FirstOrDefault(Predicate<TSource> _predicate)
+            public TSource FirstOrDefault(ZPredicate<TSource> _predicate)
             {
                 using (enumerator)
                 {
@@ -42,7 +42,7 @@ namespace Zinq
             /// </summary>
             /// <param name="_outCollection"></param>
             /// <typeparam name="TCollection"></typeparam>
-            public TSource FirstOrDefault<TContext>(TContext _context, Func<TContext, TSource, bool> _predicate)
+            public TSource FirstOrDefault<TContext>(in TContext _context, ZFunc<TContext, TSource, bool> _predicate)
             {
                 using (enumerator)
                 {
