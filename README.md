@@ -15,28 +15,29 @@ Zinq version, writes to outputList:
 
 ### Context queries (to avoid closures)
 Often Linq-style queries require closures to pass in information from the calling function. 
-
+````csharp
     void GetAllItemsOfType(int _itemType, List<Item> _output)
     {
         // _itemType is passed in as a closure allocation
         m_Items.Zinq().Select(x=>x.itemType==_itemType).To(_output);
     }
-
+````
 Zinq provides "context" versions of queries where this information is passed in as a parameter to the lambda.
-
+````csharp
     void GetAllItemsOfType(int _itemType, List<Item> _output)
     {
         // _itemType is the context for the query, and is passed in as the first parameter
         m_Items.Zinq().Select(_itemType, (_type,x)=>x.itemType==_type).To(_output);
     }
+````
 The context invariant can be of any type. Which allows for multiple context parameters to be sent through as a value-tuple.
-
+````csharp
     void GetAllItemsOfType(int _itemType, int _itemCategory, List<Item> _output)
     {
         // a context can contain multiple values by passing in an anonymous value-tuple
         m_Items.Zinq().Select((type:_itemType, category:_itemCategory), (c,x)=>x.itemType==c.type && x.itemCategory==c.category).To(_output);
     }
-
+````
 ## Supported Queries
 * Where
 * Select
